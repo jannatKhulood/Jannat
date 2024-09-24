@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Happy Birthday Savita</title>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Happy Birthday Jannate">
+  <link rel="icon" href="../../images/others/favicon.ico" type="image/x-icon" />
+  <meta property="og:description" content="Wish you a very Happy Birthday">
+  <link rel="stylesheet" type="text/css" href="../css/stylesheet.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:100,300' rel='stylesheet' type='text/css'>
+
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #131313;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .cover {
+      background: rgba(0, 0, 0, 0.82);
+      padding: 20px;
+      text-align: center;
+      border-radius: 15px;
+    }
+
+    .twenty-one {
+      font-size: 240px;
+      font-family: 'Josefin Sans';
+      font-weight: 100;
+      color: #fff;
+      margin: 0;
+    }
+
+    .bday {
+      font-size: 24px;
+      color: #fff;
+      font-family: 'Josefin Sans';
+      font-weight: 300;
+    }
+
+    @media (max-width: 768px) {
+      .twenty-one {
+        font-size: 120px; /* Adjusted for mobile */
+      }
+
+      .bday {
+        font-size: 18px; /* Adjusted for mobile */
+      }
+    }
+
+    /* Firefly Animation */
+    .heart-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="heart-animation" id="heartCanvas"></div>
+  
+  <div class="cover">
+    <h2 class="twenty-one">2024</h2>
+    <h1 class="bday">Happy Birthday <a target="_self" rel="noopener noreferrer" href="../../index.html">Jannate</a></h1>
+    <h2 class="bday">I hope your day is as wonderful as you are. I've really enjoyed getting to know you, and you make every moment special. <a target="_self" rel="noopener noreferrer" href="../../index.html">My Bandariya</a></h2>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const hearts = [];
+
+    class Heart {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 5 + 2;
+        this.speed = Math.random() * 1 + 0.5;
+        this.alpha = 1;
+      }
+
+      update() {
+        this.y -= this.speed;
+        this.alpha -= 0.01;
+        if (this.alpha <= 0) {
+          this.alpha = 0;
+        }
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(255, 0, 0, ${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function createHeart() {
+      const x = Math.random() * canvas.width;
+      const y = canvas.height;
+      hearts.push(new Heart(x, y));
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hearts.forEach((heart, index) => {
+        heart.update();
+        heart.draw();
+        if (heart.alpha <= 0) {
+          hearts.splice(index, 1);
+        }
+      });
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(createHeart, 300);
+    animate();
+  </script>
+
+</body>
+</html>
